@@ -1,5 +1,10 @@
 #include "Module.hpp"
 
+extern "C" __declspec(dllexport) ModuleInterface* __stdcall CreateModule(HoNToolKit* pHoNToolKit) 
+{
+	return new Module(pHoNToolKit, &g_ModuleInfo);
+}
+
 Module::Module(HoNToolKit* pHoNToolKit, ModuleInfo_t* pModuleInfo)
 {
 	this->m_pHoNToolKit = pHoNToolKit;

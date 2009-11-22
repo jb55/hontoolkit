@@ -21,8 +21,3 @@ class Module : public ModuleInterface
 		virtual bool BeforeGamePacketReceived(byte* pbPacket, size_t nLen);
 		virtual bool BeforeGamePacketSend(byte* pbPacket, size_t nLen);
 };
-
-extern "C" __declspec(dllexport) ModuleInterface* __stdcall CreateModule(HoNToolKit* pHoNToolKit) 
-{
-	return new Module(pHoNToolKit, &g_ModuleInfo);
-}
