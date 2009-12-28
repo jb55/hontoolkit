@@ -1,0 +1,25 @@
+<!--
+	HoNToolKit Configuration
+	
+	DO NOT EDIT IF YOU DONT KNOW WHAT YA DO ..
+-->
+
+<Patterns>
+	<!-- Patches -->
+		<Pattern name="GamePacketReceiveHook" type="export" library="cgame.dll" symbol="InitLibrary" offset="189" />
+	
+	<!-- Vars -->
+		<Pattern name="s_pGame" type="export" library="game_shared.dll" symbol="?s_pGame@IGame@@0PAV1@A" />
+		<Pattern name="K2System" type="export" library="k2.dll" symbol="?K2System@@3AAVCSystem@@A" />
+		<Pattern name="pChatManager" type="export" library="k2.dll" symbol="?pChatManager@@3PAVCChatManager@@A" />
+		<Pattern name="g_pConsole" type="export" library="k2.dll" symbol="?g_pConsole@@3PAVCConsole@@A" />
+
+		<!-- Functions -->
+		<Pattern name="IBuffer_Init" type="pattern" library="k2.dll" pattern="8B 4C 24 04 8D 46 18 89 46 04 C7 46 08 17 00 00 00" offset="-58" />
+		<Pattern name="CHostClient_SendGameData" type="export" library="k2.dll" symbol="?SendGameData@CHostClient@@QAEXABVIBuffer@@_N@Z" />
+		<Pattern name="DXEndScene" type="export" library="vid_d3d9.dll" symbol="InitAPIs" offset="103" />
+		<Pattern name="CChatManager_AddGameChatMessage" type="export" library="k2.dll" symbol="?AddGameChatMessage@CChatManager@@QAEXW4EChatMessageType@@ABV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z" />
+		<Pattern name="CConsole_Execute" type="export" library="k2.dll" symbol="?Execute@CConsole@@QAEXABV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z" />
+		<Pattern name="CUIManager_GetActiveInterface" type="export" library="k2.dll" symbol="?GetActiveInterface@CUIManager@@QBEPAVCInterface@@XZ" />
+		<Pattern name="CUIManager_SetActiveInterface" type="export" library="k2.dll" symbol="?SetActiveInterface@CUIManager@@QAEXABV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z" />
+</Patterns>

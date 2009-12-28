@@ -22,23 +22,32 @@ Module::~Module()
 bool
 Module::Input(char** argv, int argc)
 {
-	if((!_strcmpi(argv[0], "show") || !_strcmpi(argv[0], "hide")) && argc >= 3)
+	if((!_strcmpi(argv[0], "show") || !_strcmpi(argv[0], "hide")))
 	{
 		bool	bShow		= !_strcmpi(argv[0], "show") ? true : false;
-		bool	bReceive	= !_strcmpi(argv[1], "r") ? true : false;
 
-		for(int i = 2; i < argc; i++)
+		if(argc >= 3)
 		{
-			char*	x = "";
-			byte	bPacket	= (byte)strtoul(argv[i], &x, 0x10);
+			bool	bReceive	= !_strcmpi(argv[1], "r") ? true : false;
 
-			if(bShow)
-				this->m_pSniffer->ShowPacket(bPacket, bReceive);
-			else
-				this->m_pSniffer->HidePacket(bPacket, bReceive);
+			for(int i = 2; i < argc; i++)
+			{
+				char*	x = "";
+				byte	bPacket	= (byte)strtoul(argv[i], &x, 0x10);
+
+				if(bShow)
+					this->m_pSniffer->ShowPacket(bPacket, bReceive);
+				else
+					this->m_pSniffer->HidePacket(bPacket, bReceive);
+			}
+
+			return true;
 		}
-
-		return true;
+		else if(argc == 2 && !_strcmpi(argv[1], "all"))
+		{
+			this->m_pSniffer->ShowAll(bShow);
+			return true;
+		}
 	}
 	else if(!_strcmpi(argv[0], "list"))
 	{

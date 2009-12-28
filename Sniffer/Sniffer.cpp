@@ -132,9 +132,15 @@ Sniffer::ClearPacketList(void)
 }
 
 void
+Sniffer::ShowAll(bool bFlag)
+{
+	m_bShowAll = bFlag;
+}
+
+void
 Sniffer::OnGamePacketReceive(byte *pbPacket, size_t nLen)
 {
-	if(this->m_PacketRecvList[pbPacket[0]])
+	if(this->m_PacketRecvList[pbPacket[0]] || m_bShowAll)
 	{
 		char szPacket[1024] = "";
 
@@ -156,7 +162,7 @@ Sniffer::OnGamePacketReceive(byte *pbPacket, size_t nLen)
 void
 Sniffer::OnGamePacketSend(byte *pbPacket, size_t nLen)
 {
-	if(this->m_PacketSendList[pbPacket[0]])
+	if(this->m_PacketSendList[pbPacket[0]] || m_bShowAll)
 	{
 		char szPacket[1024] = "";
 

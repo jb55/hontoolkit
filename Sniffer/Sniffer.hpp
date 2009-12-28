@@ -10,6 +10,7 @@ class Sniffer
 		std::map<byte, LPSTR>	m_PacketRecvNames;
 		std::map<byte, bool>	m_PacketSendList;
 		std::map<byte, bool>	m_PacketRecvList;
+		bool					m_bShowAll;
 
 	public:
 		Sniffer(HoNToolKit* pHoNToolKit);
@@ -20,6 +21,7 @@ class Sniffer
 
 		bool		ShowPacket(byte bPacket, bool bReceive);
 		bool		HidePacket(byte bPacket, bool bReceive);
+		void		ShowAll(bool bFlag);
 		void		ShowPacketList(void);
 		void		ClearPacketList(void);
 
