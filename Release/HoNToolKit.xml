@@ -15,7 +15,7 @@
 		<Pattern name="g_pConsole" type="export" library="k2.dll" symbol="?g_pConsole@@3PAVCConsole@@A" />
 
 		<!-- Functions -->
-		<Pattern name="IBuffer_Init" type="pattern" library="k2.dll" pattern="8B 4C 24 04 8B C6 64 89 0D 00 00 00 00 5E 83 C4 0C C2 04 00" offset="-58" />
+		<Pattern name="IBuffer_Init" type="pattern" library="game.dll" pattern="8B 4C 24 04 8B C6 64 89 0D 00 00 00 00 5E 83 C4 0C C2 04 00" offset="-58" />
 		<Pattern name="CHostClient_SendGameData" type="export" library="k2.dll" symbol="?SendGameData@CHostClient@@QAEXABVIBuffer@@_N@Z" />
 		<Pattern name="DXEndScene" type="export" library="vid_d3d9.dll" symbol="InitAPIs" offset="103" />
 		<Pattern name="CChatManager_AddGameChatMessage" type="export" library="k2.dll" symbol="?AddGameChatMessage@CChatManager@@QAEXW4EChatMessageType@@ABV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z" />
