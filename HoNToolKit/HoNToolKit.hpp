@@ -1,6 +1,7 @@
 #pragma once
 
 #include <windows.h>
+#include <string>
 #include "HoNClasses.hpp"
 
 class	HoNToolKit;
@@ -26,12 +27,14 @@ class HoNToolKit
 		PatchCall*		m_pGamePacketReceiveHook;
 		PatchCall*		m_pGamePacketSendHook;
 		PatchCall*		m_pGameEndSceneHook;
+		PatchIAT*		m_pGameSetActiveInterfaceHook;
 
 		ModuleManager*	m_pModuleManager;
 
-		static		void GamePacketReceive_Interception(void);
-		static		void GamePacketSend_Interception(void);
-		static		void GameEndScene_Interception(void);
+		static		void						GamePacketReceive_Interception(void);
+		static		void						GamePacketSend_Interception(void);
+		static		void						GameEndScene_Interception(void);
+		static		HoN::CInterface* __thiscall	GameSetActiveInterface_Interception(HoN::CUIManager* pUIManager, std::wstring* psInterface);
 
 	public:
 		HoNToolKit(HMODULE hModule);
@@ -43,6 +46,7 @@ class HoNToolKit
 		bool				GamePacketReceive(HoN::CPacket* pPacket);
 		bool				GamePacketSend(HoN::IBuffer* pPacket);
 		IDirect3DDevice9*	GameEndScene(void);
+		HoN::CInterface*	GameSetActiveInterface(std::wstring* psInterface);
 		void				GameParseInput(LPSTR lpszInput);
 
 		// ** Exports ** //

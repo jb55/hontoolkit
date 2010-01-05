@@ -163,4 +163,20 @@ namespace HoN
 		private:
 			DWORD _1;
 	};
+
+	class CConsole
+	{
+
+	};
+
+	class CUIManager
+	{
+
+	};
+
+
+	class CInterface
+	{
+
+	};
 };

@@ -1,7 +1,9 @@
 #include "HoNToolKit.hpp"
+
 #include <stdio.h>
 #include <d3d9.h>
 #include <sstream>
+
 #include "Import.hpp"
 #include "Patch.hpp"
 #include "HoNImports.hpp"
@@ -42,9 +44,10 @@ HoNToolKit::Initialize(void)
 	this->m_pDirectX = new DirectX(pIDirect3DDevice9);
 	this->m_pModuleManager = new ModuleManager();
 
-	this->m_pGamePacketReceiveHook	= new PatchCall(*(DWORD_PTR*)(DWORD_PTR)GamePacketReceiveHook, (DWORD_PTR)GamePacketReceive_Interception, 5);
-	this->m_pGamePacketSendHook		= new PatchCall((DWORD_PTR)(DWORD_PTR)GamePacketSendHook, (DWORD_PTR)GamePacketSend_Interception, 6);
-	this->m_pGameEndSceneHook		= new PatchCall((*(DWORD_PTR*)(DWORD_PTR)GameEndSceneHook) + 0x42, (DWORD_PTR)GameEndScene_Interception, 5);
+	this->m_pGamePacketReceiveHook		= new PatchCall(*(DWORD_PTR*)(DWORD_PTR)GamePacketReceiveHook, (DWORD_PTR)GamePacketReceive_Interception, 5);
+	this->m_pGamePacketSendHook			= new PatchCall((DWORD_PTR)(DWORD_PTR)GamePacketSendHook, (DWORD_PTR)GamePacketSend_Interception, 6);
+	this->m_pGameEndSceneHook			= new PatchCall((*(DWORD_PTR*)(DWORD_PTR)GameEndSceneHook) + 0x42, (DWORD_PTR)GameEndScene_Interception, 5);
+	//this->m_pGameSetActiveInterfaceHook	= new PatchIAT(GetModuleHandle("cgame.dll"), "k2.dll", "?SetActiveInterface@CUIManager@@QAEXABV?$basic_string@_WU?$char_traits@_W@std@@V?$allocator@_W@2@@std@@@Z", (DWORD_PTR)GameSetActiveInterface_Interception);
 
 	if(this->m_pDirectX->Initialize())
 	{
@@ -118,6 +121,13 @@ HoNToolKit::GameEndScene_Interception(void)
 		mov ecx, g_pHoNToolKit
 		jmp HoNToolKit::GameEndScene
 	}
+}
+
+HoN::CInterface*
+__thiscall
+HoNToolKit::GameSetActiveInterface_Interception(HoN::CUIManager* pUIManager, std::wstring* psInterface)
+{
+	return 0;	
 }
 
 bool
@@ -322,7 +332,7 @@ HoNToolKit::SendGamePacket(byte* pbPacket, size_t nLen)
 	(*HoN::IBuffer_Init)(&IPacket);
 	IPacket.pbData = pbPacket;
 	IPacket.dwLength = nLen;
-	(((HoN::IGame*)HoN::s_pGame)->m_pHostClient->**HoN::CHostClient_SendGameData)(&IPacket);
+	(((HoN::IGame*)HoN::s_pGame)->m_pHostClient->**HoN::CHostClient_SendGameData)(&IPacket, TRUE);
 }
 
 void
